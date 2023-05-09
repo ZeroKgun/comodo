@@ -247,10 +247,4 @@ CORS_ALLOW_CREDENTIALS = DEBUG
 
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.naver.com'
-# EMAIL_HOST_USER = 'maxgun98'
-# EMAIL_HOST_PASSWORD = "726506gygy"
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# DEFAULT_FROM_MAIL = 'maxgun98'
+

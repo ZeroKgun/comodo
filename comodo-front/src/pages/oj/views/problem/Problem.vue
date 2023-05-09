@@ -11,7 +11,7 @@
       <b-navbar id="main-header" type="dark">
         <b-navbar-brand to="/">
           <div class="logo-img">
-            <img src="@/assets/logos/logo.svg" alt="" />
+            <img src="@/assets/logos/comodo-sqr2.svg" alt="" />
           </div>
         </b-navbar-brand>
 

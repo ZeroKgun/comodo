@@ -109,18 +109,12 @@ class OptionKeys:
 
 class OptionDefaultValue:
     website_base_url = "http://127.0.0.1:8080"
-    website_name = "SKKU Coding Platform"
+    website_name = "Comodo Coding Platform"
     website_name_shortcut = "Coding Platform"
-    website_footer = "SKKU Coding Platform by SKKUDING"
+    website_footer = "Comodo Coding Platform by SKKUDING"
     allow_register = True
     submission_list_show_all = True
-    smtp_config = {
-        "email" : "maxgun98@naver.com",
-        "server": "smtp.naver.com",
-        "password": "726506gygy",
-        "port": 587,
-        "tls": True,
-    }
+    smtp_config = {  }
     judge_server_token = default_token
     throttling = {"ip": {"capacity": 100, "fill_rate": 0.1, "default_capacity": 50},
                   "user": {"capacity": 20, "fill_rate": 0.03, "default_capacity": 10}}

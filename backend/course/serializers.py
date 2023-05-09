@@ -7,7 +7,7 @@ class CreateCourseSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=64)
     course_code = serializers.CharField(max_length=64)
     class_number = serializers.IntegerField()
-    registered_year = serializers.IntegerField()
+    ed_year = serializers.IntegerField()
     semester = serializers.IntegerField()
 
 

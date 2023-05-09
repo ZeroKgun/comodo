@@ -27,7 +27,7 @@ JudgeServer.objects.create(
 )
 " | python3 /workspace/backend/manage.py shell
 
-# Register judge server token
+#  judge server token
 echo "
 from options.options import SysOptions
 SysOptions.judge_server_token='$JUDGE_SERVER_TOKEN'
