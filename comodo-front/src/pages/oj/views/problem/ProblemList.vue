@@ -1,13 +1,13 @@
 <template>
   <div>
-    <page-top>
+    <!-- <page-top>
       <template #title>
         <span class="text-white"> Problems </span>
       </template>
       <template #description>
         알고리즘 분류와 난이도를 선택하여 지금 내게 필요한 문제를 풀어보세요!
       </template>
-    </page-top>
+    </page-top> -->
     <div class="problem-list-card font-bold">
       <div v-for="problemSetGroup in problemSetGroups" :key="problemSetGroup.id">
         <h4 class="subtitle-blue text-xl">
@@ -37,12 +37,12 @@
               <b-dropdown-item @click="filterByTag('graph')">그래프</b-dropdown-item>
             </b-dropdown>
             <b-dropdown :text="difficulty" class="ml-3">
-              <b-form-checkbox class="ml-3 my-1" @click="filterByDifficulty('All')">All</b-form-checkbox>
-              <b-form-checkbox class="ml-3 my-1" @click="filterByDifficulty('Level1')">Level1</b-form-checkbox>
-              <b-form-checkbox class="ml-3 my-1" @click="filterByDifficulty('Level2')">Level2</b-form-checkbox>
-              <b-form-checkbox class="ml-3 my-1" @click="filterByDifficulty('Level3')">Level3</b-form-checkbox>
-              <b-form-checkbox class="ml-3 my-1" @click="filterByDifficulty('Level4')">Level4</b-form-checkbox>
-              <b-form-checkbox class="ml-3 my-1" @click="filterByDifficulty('Level5')">Level5</b-form-checkbox>
+              <b-dropdown-item class="ml-3 my-1" @click="filterByDifficulty('All')">All</b-dropdown-item>
+              <b-dropdown-item class="ml-3 my-1" @click="filterByDifficulty('Level1')">Level1</b-dropdown-item>
+              <b-dropdown-item class="ml-3 my-1" @click="filterByDifficulty('Level2')">Level2</b-dropdown-item>
+              <b-dropdown-item class="ml-3 my-1" @click="filterByDifficulty('Level3')">Level3</b-dropdown-item>
+              <b-dropdown-item class="ml-3 my-1" @click="filterByDifficulty('Level4')">Level4</b-dropdown-item>
+              <b-dropdown-item class="ml-3 my-1" @click="filterByDifficulty('Level5')">Level5</b-dropdown-item>
             </b-dropdown>
           </div>
           <div class="tags mx-1">
@@ -55,7 +55,7 @@
             >
             </b-form-checkbox>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <b-icon icon="search" class="search-icon"/>
             <b-input placeholder="keywords" class="search-input w-40"
               v-model="keyword" @input="filterByKeyword"/>
@@ -113,13 +113,13 @@ import api from '@oj/api'
 import { ProblemMixin } from '@oj/components/mixins'
 import { DIFFICULTY_COLOR } from '@/utils/constants'
 import ProblemSetGroup from '@oj/components/ProblemSetGroup.vue'
-import PageTop from '@oj/components/PageTop.vue'
+// import PageTop from '@oj/components/PageTop.vue'
 
 export default {
   name: 'problemList',
   components: {
     ProblemSetGroup,
-    PageTop
+    // PageTop
   },
   mixins: [ProblemMixin],
   data () {
