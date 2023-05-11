@@ -29,8 +29,7 @@
               <b-dropdown-item @click="filterByTag('sorting')">정렬</b-dropdown-item>
               <b-dropdown-item @click="filterByTag('string')">문자열</b-dropdown-item>
               <b-dropdown-item @click="filterByTag('dp')">다이나믹 프로그래밍</b-dropdown-item>
-              <b-dropdown-item @click="filterByTag('bfs')">너비 우선 탐색</b-dropdown-item>
-              <b-dropdown-item @click="filterByTag('dfs')">깊이 우선 탐색</b-dropdown-item>
+              <b-dropdown-item @click="filterByTag('dfs/bfs')">깊이/너비 우선 탐색</b-dropdown-item>
               <b-dropdown-item @click="filterByTag('data_structures')">자료 구조</b-dropdown-item>
               <b-dropdown-item @click="filterByTag('greedy')">그리디</b-dropdown-item>
               <b-dropdown-item @click="filterByTag('bruteforcing')">브루트포스</b-dropdown-item>
@@ -118,7 +117,7 @@ import ProblemSetGroup from '@oj/components/ProblemSetGroup.vue'
 export default {
   name: 'problemList',
   components: {
-    ProblemSetGroup,
+    ProblemSetGroup
     // PageTop
   },
   mixins: [ProblemMixin],

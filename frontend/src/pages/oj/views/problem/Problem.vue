@@ -15,7 +15,7 @@
           </div>
         </b-navbar-brand>
 
-        <b-navbar-nav
+        <!-- <b-navbar-nav
           v-if="$route.name && $route.name.indexOf('contest') != -1"
         >
           <b-nav-item to="/contest">Contests</b-nav-item>
@@ -45,9 +45,9 @@
             <b-icon icon="chevron-right" />
           </b-nav-item>
           <b-nav-item active>{{ problem.title }}</b-nav-item>
-        </b-navbar-nav>
+        </b-navbar-nav> -->
 
-        <b-navbar-nav v-else>
+        <b-navbar-nav>
           <b-nav-item>
             <b-icon icon="chevron-right" />
           </b-nav-item>
@@ -101,10 +101,11 @@
           <b-nav-item class="menu-icon" active>
             <b-icon icon="list" scale="1.4" v-b-toggle.sidebar />
           </b-nav-item>
-        </b-navbar-nav>
-        <b-navbar-nav>
           <b-nav-item to="#" class="active-link problem-title" active>
             {{ problem.title }}
+          </b-nav-item>
+          <b-nav-item>
+            <Hint :tag="problem.tags[0]" />
           </b-nav-item>
         </b-navbar-nav>
 
@@ -340,6 +341,7 @@ import login from '@oj/views/user/Login'
 import profileSetting from '@oj/views/user/ProfileSetting'
 import Table from '@oj/components/Table.vue'
 import VueResizable from 'vue-resizable'
+import Hint from '@oj/components/Hint.vue'
 
 export default {
   name: 'ProblemDetails',
@@ -350,7 +352,8 @@ export default {
     register,
     profileSetting,
     Table,
-    VueResizable
+    VueResizable,
+    Hint: Hint
   },
   mixins: [FormMixin],
   data () {
