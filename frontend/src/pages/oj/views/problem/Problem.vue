@@ -105,7 +105,7 @@
             {{ problem.title }}
           </b-nav-item>
           <b-nav-item>
-            <Hint :tag="problem.tags[0]" />
+            <Hint :tag="problem.tags[0]" :problemDesc="problem.description" />
           </b-nav-item>
         </b-navbar-nav>
 
@@ -353,7 +353,7 @@ export default {
     profileSetting,
     Table,
     VueResizable,
-    Hint: Hint
+    Hint
   },
   mixins: [FormMixin],
   data () {

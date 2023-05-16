@@ -4,18 +4,21 @@ module.exports = {
     node: true
   },
   extends: [
-    'plugin:vue/essential',
-    '@vue/standard',
-    'plugin:cypress/recommended'
+    "plugin:vue/essential",
+    "@vue/standard",
+    "plugin:cypress/recommended"
   ],
   parserOptions: {
-    parser: '@babel/eslint-parser'
+    parser: "@babel/eslint-parser"
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'vue/no-parsing-error': ['error', {
-      'x-invalid-end-tag': false
+    "no-console": "off",
+    "no-debugger": "off",
+    quotes: ["off", "double"],
+    semi: ["off", "never"],
+
+    "vue/no-parsing-error": ["error", {
+      "x-invalid-end-tag": false
     }]
   }
 }
