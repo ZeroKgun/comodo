@@ -37,7 +37,8 @@ services:
       - /tmp
     volumes:
       - ../backend/data/test_case:/test_case:ro
-      - judger-data:/judger
+      - ../backend/data/judge-server/log:/log
+      - ../backend/data/judge-server/run:/judger
     environment:
       - DISABLE_HEARTBEAT=1
       - TOKEN=CHANGE_THIS

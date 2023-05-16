@@ -6,7 +6,7 @@
   "forwardPorts": [
     10000
   ],
-  "postCreateCommand": "workspace/.devcontainer/postCreateCommand.sh",
+  "postCreateCommand": "./.devcontainer/postCreateCommand.sh",
   "extensions": [
     "bradlc.vscode-tailwindcss",
     "dbaeumer.vscode-eslint",
