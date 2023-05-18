@@ -9,10 +9,10 @@ import ContestRanking from './contest/ContestRanking.vue'
 import ContestProblemList from './contest/ContestProblemList.vue'
 import LectureList from './lecture/LectureList.vue'
 import LectureDashboard from './lecture/LectureDashboard.vue'
-import LectureAssignmentList from './lecture/LectureAssignmentList.vue'
-import LectureAssignmentDetail from './lecture/LectureAssignmentDetail.vue'
-import LectureQna from './lecture/LectureQnA.vue'
-import LectureQnaDetail from './lecture/LectureQnADetail.vue'
+// import LectureAssignmentList from './lecture/LectureAssignmentList.vue'
+// import LectureAssignmentDetail from './lecture/LectureAssignmentDetail.vue'
+// import LectureQna from './lecture/LectureQnA.vue'
+// import LectureQnaDetail from './lecture/LectureQnADetail.vue'
 
 // Grouping Components in the Same Chunk
 const Problem = () => import(/* webpackChunkName: "Problem" */ '@oj/views/problem/Problem.vue')
@@ -33,7 +33,7 @@ export {
   Logout, ProblemList, Announcement, AnnouncementList, Problem, ProblemSet,
   ApplyResetPassword, ResetPassword, EmailAuth, ProfileSetting,
   ContestList, ContestDetail, ContestProblemList, ContestRanking, Register,
-  LectureList, LectureDashboard, LectureAssignmentList, LectureAssignmentDetail, LectureQna, LectureQnaDetail
+  LectureList, LectureDashboard //, LectureAssignmentList, LectureAssignmentDetail, LectureQna, LectureQnaDetail
 }
 /* 구성 요소 내보내기는 두 가지 범주로 나뉩니다.
  *   하나는 일반적으로 직접 내보내기에 사용되며
