@@ -90,6 +90,17 @@ class SubmissionAPI(APIView):
                                                ip=request.session["ip"],
                                                contest_id=data.get("contest_id"),
                                                assignment_id=data.get("assignment_id"))
+        #code analysis test
+        #__submission_id = submission.id
+        #__code = submission.code
+        #__user_id = submission.user_id
+        #__problem_id = submission.problem_id
+        # __sample = Problem.objects.get(id=submission.problem_id).samples[0]
+        # __input = __sample['input']
+        # t1 = open(submission.id+'.py', 'w')
+        # t1.write(__input + '\n' + '@profile'+'\n'+ submission.code)
+        # t1.close()
+
         # use this for debug
         # JudgeDispatcher(submission.id, problem.id).judge()
         judge_task(submission.id, problem.id)
