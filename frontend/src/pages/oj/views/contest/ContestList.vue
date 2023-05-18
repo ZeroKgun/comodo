@@ -2,8 +2,8 @@
   <div>
     <page-top>
       <template #title>
-        <span class="title-white">? 개월 학습과정</span>
-        <span class="title-gold"> 게시판</span>
+        <span class="title-gold">고득점 키트</span>
+        <span class="title-gold"> by Comodo</span>
       </template>
       <template #description>
         내용

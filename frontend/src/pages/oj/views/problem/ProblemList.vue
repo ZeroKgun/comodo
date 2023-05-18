@@ -16,13 +16,13 @@
         <problem-set-group :problem-set-group="problemSetGroup"></problem-set-group>
       </div>
       <h4 v-if="tag===''" class="subtitle-blue text-xl">
-        All Problems
+        모든 문제
       </h4>
       <h4 v-else class="subtitle-blue text-xl">{{ tag }}</h4>
       <div class="mb-4 my-4">
         <div class="category-container d-flex">
           <div class="mr-auto">
-            <b-dropdown text="Tag">
+            <b-dropdown text="tag">
               <b-dropdown-item @click="filterByTag('')">전체</b-dropdown-item>
               <b-dropdown-item @click="filterByTag('math')">수학</b-dropdown-item>
               <b-dropdown-item @click="filterByTag('implementation')">구현</b-dropdown-item>
