@@ -6,15 +6,8 @@
         <b-button
           v-if="!saveBtnVisible"
           size="sm"
-          @click="setBookmark"
-        >All Course</b-button>
-        <b-button
-          v-if="saveBtnVisible"
-          size="sm"
-          @click="saveBookmark"
-        >
-          <b-icon icon="check"/> 저장
-        </b-button>
+          @click="window.open('/announcement/')"
+        >글쓰기</b-button>
       </div>
     </div>
     <Table
