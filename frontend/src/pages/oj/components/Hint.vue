@@ -62,8 +62,8 @@ export default {
       showLoadingCircle: false,
       GPTResponseResult: "",
       secondHint: '이 문제에 사용되는 변수와 함수 인자를 알려줘 "변수: ~~ 함수 인자: ~~ " 형태로 간단히 보여줘 정답은 보여주지 마',
-      thirdHint: '이 문제 해답의 pseudo-code를 알려줘 in English',
-      fourthHint: '이 문제 정답 코드만 보여줘'
+      thirdHint: '이 문제 해답의 pseudo-code를 알려줘 in KOREAN, 정답 코드는 보여주지 마',
+      fourthHint: '이 문제 정답 코드만 보여줘 마크다운 코드 블록 형식으로 보여줘'
     }
   },
   props: {
@@ -102,7 +102,7 @@ export default {
         method: 'POST',
         headers: {
           // eslint-disable-next-line no-undef
-          Authorization: `Bearer ${process.env.VUE_APP_OPENAI_API_KEY}`,
+          Authorization: "Bearer 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",
           'Content-Type': 'application/json',
           model: 'gpt-3.5-turbo'
         },

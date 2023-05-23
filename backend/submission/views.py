@@ -1,4 +1,5 @@
 import ipaddress
+import os
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -15,6 +16,7 @@ from utils.constants import AssignmentStatus
 from utils.cache import cache
 from utils.captcha import Captcha
 from utils.decorators import login_required, check_contest_permission, admin_role_required, check_assignment_permission
+from utils.shortcuts import file_func
 from utils.throttling import TokenBucket
 from .models import Submission
 from .serializers import (CreateSubmissionSerializer, SubmissionModelSerializer,
@@ -90,6 +92,23 @@ class SubmissionAPI(APIView):
                                                ip=request.session["ip"],
                                                contest_id=data.get("contest_id"),
                                                assignment_id=data.get("assignment_id"))
+
+        __problem_id = submission.problem_id
+        __sample = Problem.objects.get(id=submission.problem_id).samples[0]
+        __input = __sample['input']
+        file_name = submission.id+'.py'
+        t1 = open(file_name, 'w')
+        t1.write('@profile'+'\n'+ 'def func(input):\n')
+        file_func(t1, submission.code)
+        t1.write('func(input)')
+        t1.close()
+        # COMPILE_RESULT_PATH = os.path.join(BASE_DIR, "compile_result")
+        # os.chdir(COMPILE_RESULT_PATH)
+        os.system("kernprof -l "+ file_name)
+        os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
+
+
+
         # use this for debug
         # JudgeDispatcher(submission.id, problem.id).judge()
         judge_task(submission.id, problem.id)
