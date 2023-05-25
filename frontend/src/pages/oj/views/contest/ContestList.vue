@@ -2,8 +2,8 @@
   <div>
     <page-top>
       <template #title>
-        <span class="title-white">? 개월 학습과정</span>
-        <span class="title-gold"> 게시판</span>
+        <span class="title-gold">고득점 키트</span>
+        <span class="title-gold"> by Comodo</span>
       </template>
       <template #description>
         내용
@@ -46,12 +46,12 @@
         </template>
       </neon-box>
       <button v-if="contestsUpcomingRendered < contestsUpcomingTotal" @click="loadMoreContests(CONTEST_STATUS.NOT_START)">Load More..</button>
-      <h4 class="subtitle-red text-xl">
+      <!--h4 class="subtitle-red text-xl">
         Finished Contests
         <button class="subtitle-toggle" @click="showFinishedContests = !showFinishedContests">
           <b-icon :icon="showFinishedContests ? 'caret-up-fill':'caret-down-fill'" color="#FF6663"></b-icon>
         </button>
-      </h4>
+      </h4-->
       <neon-box v-show="showFinishedContests" v-for="(contest, index) in contestsFinished"
                 :leftTop="contest.title" :leftBottom="makeGroupRequirementInfo(contest)" :rightBottom="'Finished ' + contest.finishedTimeFromNow" :rightTop="contest.participants_count" rightTopIcon="users"
                 :key="'fi' + index" color="#FF6663" class="my-3" @click.native="goContest(contest)">

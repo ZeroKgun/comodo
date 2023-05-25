@@ -1,12 +1,12 @@
 <template>
   <b-list-group class="vertical_menu">
-    <div class="logo">
+    <!--div class="logo">
       <img
         src="@/assets/logos/comodo-rect.png"
-        style="height=35px; width=auto;"
+        style="height=15px; width=15px;"
         alt="oj admin"
       >
-    </div>
+    </div-->
     <b-list-group-item to="/">
       <b-icon
         icon="journal-text"

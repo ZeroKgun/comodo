@@ -1,13 +1,13 @@
 <template>
   <div class="notice-list-card font-bold">
-    <page-title text="Notice" />
+    <page-title text="공지사항" />
     <Table
       hover
       :items="announcements"
       :fields="announcementListField"
       :per-page="perPage"
       :current-page="currentPage"
-      text="No Notice"
+      text="공지사항이 없습니다"
       @row-clicked="goAnnouncement"
     >
       <template v-slot:title="data">

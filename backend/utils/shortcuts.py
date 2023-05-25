@@ -8,6 +8,31 @@ from io import BytesIO
 from django.utils.crypto import get_random_string
 from envelopes import Envelope
 
+def ffff(id):
+    file_name = id+".txt"
+    DIR = os.path.dirname(os.path.dirname(__file__))
+    COMPILE_RESULT__DIR = f"{DIR}/profileResult/results"
+    path = os.path.join(COMPILE_RESULT__DIR, file_name)
+    f = open(path, 'r')
+    for i in range(0, 10):
+        f.readline()
+    lines = f.readlines()
+    line = []
+    per_time = []
+    for l in lines:
+        arr = l.split()
+        if len(arr)<2: continue
+        if arr[1].isdigit():
+            line.append(int(arr[0])-2)
+            per_time.append(arr[4])
+    f.close()
+    return line, per_time
+
+def file_func(t1, code):
+            str_arr = code.split('\n')
+            for i in range(0, len(str_arr)):
+                s = '\t' + str_arr[i] + '\n'
+                t1.write(s)
 
 def rand_str(length=32, type="lower_hex"):
     """

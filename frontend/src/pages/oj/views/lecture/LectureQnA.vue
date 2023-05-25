@@ -1,4 +1,4 @@
-<template>
+<!--template>
   <div class="lecture-qna-card">
     <sidemenu/>
     <div class="top-bar mb-4">
@@ -75,7 +75,7 @@
       </template>
     </b-modal>
   </div>
-</template>
+</!--template>
 
 <script>
 import sidemenu from '@oj/components/Sidemenu.vue'

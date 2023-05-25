@@ -1,7 +1,182 @@
 <template>
+  <div class="notice-list-card font-bold">
+    <div class="flex justify-between mr-32">
+      <page-title text="게시판"/>
+      <div class="my-auto h-8">
+        <b-button
+          v-if="!saveBtnVisible"
+          size="sm"
+          @click="window.open('/announcement/')"
+        >글쓰기</b-button>
+      </div>
+    </div>
+    <Table
+      hover
+      :items="lectures"
+      :fields="lectureListField"
+      :per-page="perPage"
+      :current-page="currentPage"
+      text="게시글이 없습니다"
+      @row-clicked="golecture"
+    >
+      <template v-slot:title="data">
+        {{data.row.title}}
+      </template>
+      <template v-slot:create_time="data">
+        {{ getTimeFormat(data.row.create_time) }}
+      </template>
+      <template v-slot:top_fixed="data">
+        <icon v-if="data.row.top_fixed===true" icon='thumbtack'/>
+      </template>
+    </Table>
+    <div class="pagination">
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        limit="3"
+      ></b-pagination>
+    </div>
+  </div>
+</template>
+
+<script>
+import api from '@oj/api'
+import time from '@/utils/time'
+import PageTitle from '@oj/components/PageTitle.vue'
+import Table from '@oj/components/Table.vue'
+
+export default {
+  name: 'lecture',
+  components: {
+    PageTitle,
+    Table
+  },
+  data () {
+    return {
+      perPage: 10,
+      currentPage: 1,
+      total: 10,
+      btnLoading: false,
+      lectures: [],
+      lecture: '',
+      listVisible: true,
+      topFixedCount: 0,
+      lectureListField: [
+        {
+          key: 'top_fixed',
+          label: ''
+        },
+        { key: 'title' },
+        {
+          key: 'create_time',
+          label: 'Date'
+        }
+      ]
+    }
+  },
+  computed: {
+    isContest () {
+      return !!this.$route.params.contestID
+    },
+    rows () {
+      return this.lectures.length
+    }
+  },
+  async mounted () {
+    await this.init()
+  },
+  methods: {
+    async init () {
+      if (this.isContest) {
+        await this.getContestlectureList()
+      } else {
+        await this.getlectureList()
+      }
+    },
+    async getlectureList () {
+      this.btnLoading = true
+      try {
+        const res = await api.getlectureList(0, 250)
+        this.btnLoading = false
+        const lectures = res.data.data.results
+        const topFixed = lectures.filter(
+          (lecture) => lecture.top_fixed === true
+        )
+        this.topFixedCount = topFixed.length
+        const notTopFixed = lectures.filter(
+          (lecture) => lecture.top_fixed === false
+        )
+        this.lectures = [...topFixed, ...notTopFixed]
+        this.total = res.data.data.total
+      } catch (err) {
+        this.btnLoading = false
+      }
+    },
+    async getContestlectureList () {
+      this.btnLoading = true
+      try {
+        const res = await api.getContestlectureList(this.$route.params.contestID)
+        this.btnLoading = false
+        this.lectures = res.data.data
+      } catch (err) {
+        this.btnLoading = false
+      }
+    },
+    async golecture (lecture) {
+      this.lecture = lecture
+      this.listVisible = false
+      await this.$router.push({
+        name: 'lecture-details',
+        params: { lectureID: lecture.id }
+      })
+    },
+    changeRowColor (lecture) {
+      lecture._rowVariant = 'secondary'
+    },
+    calculateIdx (row) {
+      return row.index - this.topFixedCount + 1
+    },
+    getTimeFormat (value) {
+      return time.utcToLocal(value, 'YYYY-M-D')
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+@font-face {
+  font-family: Manrope_bold;
+  src: url("../../../../fonts/Manrope-Bold.ttf");
+}
+.notice-list-card {
+  margin: 0 auto;
+  width: 70%;
+  font-family: Manrope;
+}
+.no-lecture {
+  text-align: center;
+  font-size: 16px;
+  margin: 10px 0;
+}
+.pagination {
+  margin-right: 5%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+.notice-title-field {
+  width: 75%;
+}
+.font-bold {
+  font-family: manrope_bold;
+}
+</style>
+
+<!--template>
   <div class="lecture-list-card font-bold">
     <div class="flex justify-between mr-32">
-      <page-title text="Course"/>
+      <page-title text="게시판"/>
       <div class="my-auto h-8">
         <b-button
           v-if="!saveBtnVisible"
@@ -13,11 +188,11 @@
           size="sm"
           @click="saveBookmark"
         >
-          <b-icon icon="check"/> Save
+          <b-icon icon="check"/> 저장
         </b-button>
       </div>
     </div>
-    <div class="no-lecture" v-if="!lectureList.length">No Course</div>
+    <div class="no-lecture" v-if="!lectureList.length">게시글이 없습니다</div>
     <div class="lecture-card-list">
       <b-card
         v-for="(lecture,index) in lectureList"
@@ -66,7 +241,7 @@
       </b-card>
     </div>
   </div>
-</template>
+</!--template>
 
 <script>
 import api from '@oj/api'
@@ -148,7 +323,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style-- lang="scss" scoped>
   .font-bold {
     font-family: manrope_bold;
   }
@@ -198,4 +373,4 @@ export default {
       color: #AAAAAA;
     }
   }
-</style>
+</style-->

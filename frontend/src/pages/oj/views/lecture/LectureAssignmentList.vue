@@ -1,4 +1,4 @@
-<template>
+<!--template>
   <div>
     <sidemenu/>
     <article class="lecture-assignment-card">
@@ -49,7 +49,7 @@
       </div>
     </article>
   </div>
-</template>
+</!--template>
 
 <script>
 import sidemenu from '@oj/components/Sidemenu.vue'

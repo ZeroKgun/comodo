@@ -9,9 +9,9 @@
 
     <div>
       <a class="text-2xl text-text-title mr-4 hover:text-sejong-red hover:no-underline active:text-sejong-red" href="/announcement">공지사항</a>
-      <a class="text-2xl text-text-title mr-4 hover:text-sejong-red hover:no-underline" href="/contest">게시판</a>
+      <a class="text-2xl text-text-title mr-4 hover:text-sejong-red hover:no-underline" href="/contest">고득점키트</a>
       <a class="text-2xl text-text-title mr-4 hover:text-sejong-red hover:no-underline" href="/problem">문제풀기</a>
-      <a class="text-2xl text-text-title mr-8 hover:text-sejong-red hover:no-underline" href="/lecture">이용방법</a>
+      <a class="text-2xl text-text-title mr-8 hover:text-sejong-red hover:no-underline" href="/lecture">게시판</a>
     </div>
 
     <dropdown placement="right" width="w-40" id="dropdown">
