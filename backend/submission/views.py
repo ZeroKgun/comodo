@@ -1,3 +1,7 @@
+import os
+import shutil
+from oj.settings import BASE_DIR
+import subprocess
 import ipaddress
 import os
 import subprocess
@@ -20,7 +24,10 @@ from utils.captcha import Captcha
 from utils.decorators import login_required, check_contest_permission, admin_role_required, check_assignment_permission
 from utils.shortcuts import file_func
 from utils.throttling import TokenBucket
+from utils.shortcuts import file_func
+from utils.shortcuts import ffff
 from .models import Submission
+from profileResult.models import Codeprofile
 from .serializers import (CreateSubmissionSerializer, SubmissionModelSerializer,
                           ShareSubmissionSerializer, SubmissionSafeModelSerializer, SubmissionListSerializer,
                           SubmissionListProfessorSerializer, EditSubmissionScoreSerializer)
@@ -94,25 +101,25 @@ class SubmissionAPI(APIView):
                                                ip=request.session["ip"],
                                                contest_id=data.get("contest_id"),
                                                assignment_id=data.get("assignment_id"))
-
+        #code analysis test
         __problem_id = submission.problem_id
         __sample = Problem.objects.get(id=submission.problem_id).samples[0]
-        #__input = __sample['input']
         file_name = submission.id+'.py'
         t1 = open(file_name, 'w')
         t1.write('@profile'+'\n'+ 'def main():\n')
         file_func(t1, submission.code)
         t1.write('main()')
         t1.close()
-
-        #line profiler
-        cmd_line = "kernprof -l " + file_name
-        subprocess.run(cmd_line.split(), input=__sample['input'], text=True)
-        os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+"l.txt")
-
-        #memory profiler
-        cmd_memory ="python -m memory_profiler "+file_name+" > " +submission.id+"m.txt"
-        subprocess.run(cmd_memory, shell = True, input=__sample['input'], text=True)
+        command = "kernprof -l "+ file_name
+        subprocess.run(args=command.split(), input=__sample['input'], text=True)
+        # COMPILE_RESULT_PATH = os.path.join(BASE_DIR, "compile_result")
+        # os.chdir(COMPILE_RESULT_PATH)
+        os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
+        os.remove(file_name+".lprof")
+        os.remove(file_name)
+        shutil.move(submission.id+".txt", "./profileResult/results")
+        line, per_time = ffff(submission.id)
+        Codeprofile.objects.create(submission_id=submission.id, line=line, per_time=per_time)
 
         # use this for debug
         # JudgeDispatcher(submission.id, problem.id).judge()

@@ -6,7 +6,7 @@
   "forwardPorts": [
     10000
   ],
-  "postCreateCommand": ".devcontainer/postCreateCommand.sh",
+  "postCreateCommand": "bash ./.devcontainer/postCreateCommand.sh",
   "extensions": [
     "bradlc.vscode-tailwindcss",
     "dbaeumer.vscode-eslint",
@@ -23,5 +23,5 @@
     "rangav.vscode-thunder-client"
   ],
   // Connect as non-root user (https://code.visualstudio.com/remote/advancedcontainers/add-nonroot-user)
-  "remoteUser": "vscode"
+  "remoteUser": "root"
 }
