@@ -105,7 +105,7 @@
             {{ problem.title }}
           </b-nav-item>
           <b-nav-item>
-            <Hint :tag="problem.tags[0]" :problemDesc="problem.description" :language="language" />
+            <Hint :tag=[problem.tags.toString()] :problemDesc="problem.description" :language="language" />
           </b-nav-item>
         </b-navbar-nav>
 
@@ -938,6 +938,10 @@ $inner-header-height: 58px;
 
       hr {
         border-top: 2px solid rgba(#fcfcfc, 0.5);
+      }
+
+      p {
+        line-height: 2.2;
       }
     }
 

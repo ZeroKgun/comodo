@@ -3,6 +3,9 @@ import shutil
 from oj.settings import BASE_DIR
 import subprocess
 import ipaddress
+import os
+import subprocess
+
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -19,6 +22,7 @@ from utils.constants import AssignmentStatus
 from utils.cache import cache
 from utils.captcha import Captcha
 from utils.decorators import login_required, check_contest_permission, admin_role_required, check_assignment_permission
+from utils.shortcuts import file_func
 from utils.throttling import TokenBucket
 from utils.shortcuts import file_func
 from utils.shortcuts import ffff
@@ -119,6 +123,7 @@ class SubmissionAPI(APIView):
 
         # use this for debug
         # JudgeDispatcher(submission.id, problem.id).judge()
+
         judge_task(submission.id, problem.id)
         if hide_id:
             return self.success()

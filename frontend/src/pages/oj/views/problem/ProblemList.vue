@@ -8,6 +8,7 @@
         알고리즘 분류와 난이도를 선택하여 지금 내게 필요한 문제를 풀어보세요!
       </template>
     </page-top> -->
+    <LineChart />
     <div class="problem-list-card font-bold">
       <div v-for="problemSetGroup in problemSetGroups" :key="problemSetGroup.id">
         <h4 class="subtitle-blue text-xl">
@@ -112,13 +113,15 @@ import api from '@oj/api'
 import { ProblemMixin } from '@oj/components/mixins'
 import { DIFFICULTY_COLOR } from '@/utils/constants'
 import ProblemSetGroup from '@oj/components/ProblemSetGroup.vue'
+import LineChart from '@oj/components/LineChart.vue'
+
 // import PageTop from '@oj/components/PageTop.vue'
 
 export default {
   name: 'problemList',
   components: {
-    ProblemSetGroup
-    // PageTop
+    ProblemSetGroup,
+    LineChart
   },
   mixins: [ProblemMixin],
   data () {

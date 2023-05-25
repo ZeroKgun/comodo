@@ -117,3 +117,10 @@ def check_is_id(value):
         return int(value) > 0
     except Exception:
         return False
+
+def file_func(t1, code):
+            str_arr = code.split('\n')
+            for i in range(0, len(str_arr)):
+                s = '\t' + str_arr[i] + '\n'
+                t1.write(s)
+

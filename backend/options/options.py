@@ -111,7 +111,7 @@ class OptionDefaultValue:
     website_base_url = "http://127.0.0.1:8080"
     website_name = "Comodo Coding Platform"
     website_name_shortcut = "Coding Platform"
-    website_footer = "Comodo Coding Platform by SKKUDING"
+    website_footer = "Comodo Coding Platform"
     allow_register = True
     submission_list_show_all = True
     smtp_config = {  }
