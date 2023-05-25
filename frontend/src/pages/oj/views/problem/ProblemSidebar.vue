@@ -434,7 +434,7 @@ export default {
       })
     },
     resultTextColor (result) {
-      return result === 'Accepted' ? '#B93234' : '#FF4F28'
+      return result === 'Accepted' ? '#28a745' : '#FF4F28'
     },
     async onMySubmissionClicked (item) {
       await this.getSubmissionDetail(item.ID)
