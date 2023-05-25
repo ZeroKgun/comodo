@@ -1,5 +1,7 @@
 import ipaddress
 import os
+import subprocess
+
 
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -95,22 +97,26 @@ class SubmissionAPI(APIView):
 
         __problem_id = submission.problem_id
         __sample = Problem.objects.get(id=submission.problem_id).samples[0]
-        __input = __sample['input']
+        #__input = __sample['input']
         file_name = submission.id+'.py'
         t1 = open(file_name, 'w')
-        t1.write('@profile'+'\n'+ 'def func(input):\n')
+        t1.write('@profile'+'\n'+ 'def main():\n')
         file_func(t1, submission.code)
-        t1.write('func(input)')
+        t1.write('main()')
         t1.close()
-        # COMPILE_RESULT_PATH = os.path.join(BASE_DIR, "compile_result")
-        # os.chdir(COMPILE_RESULT_PATH)
-        os.system("kernprof -l "+ file_name)
-        os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
 
+        #line profiler
+        cmd_line = "kernprof -l " + file_name
+        subprocess.run(cmd_line.split(), input=__sample['input'], text=True)
+        os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+"l.txt")
 
+        #memory profiler
+        cmd_memory ="python -m memory_profiler "+file_name+" > " +submission.id+"m.txt"
+        subprocess.run(cmd_memory, shell = True, input=__sample['input'], text=True)
 
         # use this for debug
         # JudgeDispatcher(submission.id, problem.id).judge()
+
         judge_task(submission.id, problem.id)
         if hide_id:
             return self.success()

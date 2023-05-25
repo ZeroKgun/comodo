@@ -1,0 +1,25 @@
+4
+Filename: 12e96d14b2e51ceffac021cbaa0d15e8.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+     1   18.328 MiB   18.328 MiB           1   @profile
+     2                                         def main():
+     3   18.328 MiB    0.000 MiB           1   	s = input()
+     4   18.328 MiB    0.000 MiB           1   	n = len(s)
+     5                                         	
+     6                                         	# 길이 1인 부분수열은 모두 팰린드롬
+     7   18.328 MiB    0.000 MiB           1   	count = n
+     8                                         	
+     9                                         	# 길이 2 이상인 부분수열에 대해 팰린드롬 개수 계산
+    10   18.328 MiB    0.000 MiB           3   	for length in range(2, n + 1):
+    11   18.328 MiB    0.000 MiB           5   	    for i in range(n - length + 1):
+    12   18.328 MiB    0.000 MiB           3   	        j = i + length - 1
+    13                                         	
+    14                                         	        # 양 끝 문자가 같을 경우, 양 끝 문자를 포함한 부분수열은 새로운 팰린드롬 개수를 추가함
+    15   18.328 MiB    0.000 MiB           3   	        if s[i] == s[j]:
+    16   18.328 MiB    0.000 MiB           1   	            count += 1
+    17                                         	
+    18   18.328 MiB    0.000 MiB           1   	print(count)
+
+

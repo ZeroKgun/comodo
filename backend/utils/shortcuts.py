@@ -97,7 +97,5 @@ def file_func(t1, code):
             str_arr = code.split('\n')
             for i in range(0, len(str_arr)):
                 s = '\t' + str_arr[i] + '\n'
-                s = s.replace('sys.stdin.readline()', 'input()')
-                s = s.replace('input()', 'input')
                 t1.write(s)
 
