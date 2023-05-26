@@ -62,5 +62,6 @@ module.exports = {
       ],
       cacheFilePath: path.resolve(__dirname, './public')
     }
-  }
+  },
+  lintOnSave: false
 }

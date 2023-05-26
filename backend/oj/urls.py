@@ -10,6 +10,7 @@ urlpatterns = [
     path("api/admin/", include("conf.urls.admin")),
     path("api/professor/", include("conf.urls.professor")),
     path("api/", include("problem.urls.oj")),
+    path("api/", include("profileResult.urls")),
     path("api/admin/", include("problem.urls.admin")),
     path("api/lecture/", include("problem.urls.student")),
     path("api/lecture/professor/", include("problem.urls.professor")),
@@ -28,3 +29,4 @@ urlpatterns = [
     path("api/lecture/", include("qna.urls.student")),
     path("api/lecture/professor/", include("qna.urls.professor")),
 ]
+

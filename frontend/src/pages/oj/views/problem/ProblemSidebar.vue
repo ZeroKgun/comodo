@@ -203,6 +203,12 @@
             :value="submission_detail.code"
             :language="submission_detail.language"
             theme="material"/>
+          <LineChart
+            readOnly
+            :key= "linechart_key"
+            :chartData = "chartData"
+            :options ="chartOptions"
+            />
         </div>
         <div id="submission-detail-table">
           <Table
@@ -235,13 +241,15 @@ import api from '@oj/api'
 import time from '@/utils/time'
 import { JUDGE_STATUS } from '@/utils/constants'
 import CodeMirror from '@oj/components/CodeMirror.vue'
+import LineChart from '@oj/components/LineChart.vue'
 import Table from '@oj/components/Table.vue'
 
 export default {
   name: 'ProblemSidebar',
   components: {
     CodeMirror,
-    Table
+    Table,
+    LineChart
   },
   props: {
     hide: Boolean,
@@ -256,7 +264,20 @@ export default {
       my_submissions: [],
       all_submissions: [],
       submission_detail: {},
-
+      chartData: {
+        labels: [],
+        datasets: [
+          {
+            label: 'line hit time',
+            backgroundColor: '#f87979',
+            data: []
+          }
+        ],
+      },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+      },
       // Map (key: problem id, value: problem title)
       assignmentProblems: [],
       problem_titles: {},
@@ -302,7 +323,8 @@ export default {
       compile_error_message_show: false,
 
       // for re-rendering when codemirror content is ready
-      codemirror_key: 1
+      codemirror_key: 1,
+      linechart_key: 1
     }
   },
   async mounted () {
@@ -322,7 +344,9 @@ export default {
   methods: {
     async getProfileData (submissionID) {
       const res = await api.getProfileData(submissionID)
-      this.profileData = res.data.data
+      const pdata = res.data.data
+      this.chartData.labels = pdata.line
+      this.chartData.datasets.data = pdata.per_time
     },
     async getContestProblems () {
       const res = await this.$store.dispatch(this.bank ? 'getProblemBankContestProblems' : 'getContestProblems')
@@ -443,9 +467,11 @@ export default {
     },
     async onMySubmissionClicked (item) {
       await this.getSubmissionDetail(item.ID)
+      await this.getProfileData(item.ID)
       this.submission_detail_modal_show = true
       await this.$nextTick()
       this.codemirror_key += 1
+      this.linechart_key += 1
     },
     async getSubmissionDetail (submissionID) {
       const res = await api.getSubmission(submissionID)
