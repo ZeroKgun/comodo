@@ -24,9 +24,29 @@ def ffff(id):
         if len(arr)<2: continue
         if arr[1].isdigit():
             line.append(int(arr[0])-2)
-            per_time.append(arr[4])
+            per_time.append(float(arr[4]))
     f.close()
     return line, per_time
+
+def fffm(id):
+    file_name = id+"m.txt"
+    DIR = os.path.dirname(os.path.dirname(__file__))
+    COMPILE_RESULT__DIR = f"{DIR}/profileResult/results"
+    path = os.path.join(COMPILE_RESULT__DIR, file_name)
+    f = open(path, 'r')
+    for i in range(0, 10):
+        f.readline()
+    lines = f.readlines()
+    line_m = []
+    increment = []
+    for l in lines:
+        arr = l.split()
+        if len(arr)<2: continue
+        if arr[1].isdigit():
+            line_m.append(int(arr[0])-2)
+            increment.append(float(arr[4]))
+    f.close()
+    return line_m, increment
 
 def file_func(t1, code):
             str_arr = code.split('\n')

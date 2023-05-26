@@ -102,7 +102,7 @@ export default {
         method: 'POST',
         headers: {
           // eslint-disable-next-line no-undef
-          Authorization: "Bearer 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",
+          Authorization: "Bearer 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",
           'Content-Type': 'application/json',
           model: 'gpt-3.5-turbo'
         },

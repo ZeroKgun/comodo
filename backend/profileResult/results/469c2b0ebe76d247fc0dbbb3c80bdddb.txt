@@ -1,0 +1,27 @@
+Timer unit: 1e-06 s
+
+Total time: 7.5443e-05 s
+File: 469c2b0ebe76d247fc0dbbb3c80bdddb.py
+Function: main at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           @profile
+     2                                           def main():
+     3         1         32.2     32.2     42.7  	s = input()
+     4         1          0.7      0.7      1.0  	n = len(s)
+     5                                           	
+     6                                           	# 길이 1인 부분수열은 모두 팰린드롬
+     7         1          0.2      0.2      0.3  	count = n
+     8                                           	
+     9                                           	# 길이 2 이상인 부분수열에 대해 팰린드롬 개수 계산
+    10         2          2.4      1.2      3.1  	for length in range(2, n + 1):
+    11         3          2.1      0.7      2.8  	    for i in range(n - length + 1):
+    12         3          0.9      0.3      1.2  	        j = i + length - 1
+    13                                           	
+    14                                           	        # 양 끝 문자가 같을 경우, 양 끝 문자를 포함한 부분수열은 새로운 팰린드롬 개수를 추가함
+    15         2          1.0      0.5      1.4  	        if s[i] == s[j]:
+    16         1          0.4      0.4      0.6  	            count += 1
+    17                                           	
+    18         1         35.4     35.4     46.9  	print(count)
+

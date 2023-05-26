@@ -21,7 +21,7 @@ from utils.captcha import Captcha
 from utils.decorators import login_required, check_contest_permission, admin_role_required, check_assignment_permission
 from utils.shortcuts import file_func
 from utils.throttling import TokenBucket
-from utils.shortcuts import ffff
+from utils.shortcuts import ffff, fffm
 from .models import Submission
 from profileResult.models import Codeprofile
 from .serializers import (CreateSubmissionSerializer, SubmissionModelSerializer,
@@ -107,13 +107,17 @@ class SubmissionAPI(APIView):
         t1.write('main()')
         t1.close()
         command = "kernprof -l " + file_name
+        _commandM = "python -m memory_profiler " + file_name + " > " + submission.id + "m.txt"
         subprocess.run(args=command.split(), input=__sample['input'], text=True)
+        subprocess.run(_commandM, shell =True, input=__sample['input'], text=True)
         os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
         os.remove(file_name+".lprof")
         os.remove(file_name)
         shutil.move(submission.id+".txt", "./profileResult/results")
+        shutil.move(submission.id+"m.txt", "./profileResult/results")
         line, per_time = ffff(submission.id)
-        Codeprofile.objects.create(submission_id=submission.id, line=line, per_time=per_time)
+        line_m, increment = fffm(submission.id)
+        Codeprofile.objects.create(submission_id=submission.id, line=line, per_time=per_time, line_m = line_m, increment=increment)
 
         # use this for debug
         # JudgeDispatcher(submission.id, problem.id).judge()

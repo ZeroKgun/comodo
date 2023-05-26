@@ -317,6 +317,7 @@ export default {
       this.submission_info_table_fields.unshift({ label: 'Problem', key: 'problem' })
     }
     this.initProblemTitles()
+    // this.getProfileData(submission_detail.id_full)
   },
   methods: {
     async getProfileData (submissionID) {
@@ -455,6 +456,7 @@ export default {
       data = {
         ...data,
         ...data.statistic_info,
+        id_full: data.id,
         id: data.id.substring(0, 6),
         create_time: time.utcToLocal(data.create_time, 'YYYY-MM-DD HH:mm'),
         result: JUDGE_STATUS[data.result].name,

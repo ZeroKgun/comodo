@@ -1,5 +1,7 @@
 from utils.api import serializers
+from profileResult.models import Codeprofile
 
-class ProfileResultSerializer(serializers.Serializer):
-    line = serializers.CharField()
-    per_time = serializers.CharField()
+class ProfileResultModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Codeprofile
+        fields = ['line', 'pertime']
