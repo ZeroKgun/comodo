@@ -6,7 +6,7 @@
         <b-button
           v-if="!saveBtnVisible"
           size="sm"
-          @click="window.open('/announcement/')"
+          @click="openWriteForm"
         >글쓰기</b-button>
       </div>
     </div>
@@ -37,6 +37,13 @@
         limit="3"
       ></b-pagination>
     </div>
+    <b-modal v-model="showModal" title="글 작성">
+      <textarea v-model="content" rows="5" class="form-control"></textarea>
+      <div class="mt-3">
+        <b-button @click="savePost" variant="primary">작성 완료</b-button>
+        <b-button @click="cancelPost" variant="secondary">취소</b-button>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -54,6 +61,7 @@ export default {
   },
   data () {
     return {
+      saveBtnVisible: false,
       perPage: 10,
       currentPage: 1,
       total: 10,
@@ -87,6 +95,10 @@ export default {
     await this.init()
   },
   methods: {
+    openWriteForm () {
+      this.saveBtnVisible = true;
+      this.showModal = true;
+    },
     async init () {
       if (this.isContest) {
         await this.getContestlectureList()
