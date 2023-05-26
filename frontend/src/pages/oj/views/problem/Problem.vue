@@ -105,7 +105,7 @@
             {{ problem.title }}
           </b-nav-item>
           <b-nav-item>
-            <Hint :tag=[problem.tags.toString()] :problemDesc="problem.description" :language="language" />
+            <Hint :tag="problem.tags.toString()" :problemDesc="problem.description" :language="language" />
           </b-nav-item>
         </b-navbar-nav>
 
