@@ -29,6 +29,13 @@ export default {
       }
     })
   },
+  getProfileData (id) {
+    return ajax('code_profile/', 'get', {
+      params: {
+        id
+      }
+    })
+  },
   login (data) {
     return ajax('login/', 'post', {
       data
