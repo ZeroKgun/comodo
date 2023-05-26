@@ -319,6 +319,10 @@ export default {
     this.initProblemTitles()
   },
   methods: {
+    async getProfileData (submissionID) {
+      const res = await api.getProfileData(submissionID)
+      this.profileData = res.data.data
+    },
     async getContestProblems () {
       const res = await this.$store.dispatch(this.bank ? 'getProblemBankContestProblems' : 'getContestProblems')
       if (this.isAuthenticated) {
