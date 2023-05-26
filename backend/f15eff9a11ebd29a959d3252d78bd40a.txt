@@ -1,0 +1,12 @@
+Timer unit: 1e-06 s
+
+Total time: 4.4333e-05 s
+File: f15eff9a11ebd29a959d3252d78bd40a.py
+Function: func at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           @profile
+     2                                           def func(input):
+     3         1         44.3     44.3    100.0  	print(0)
+
