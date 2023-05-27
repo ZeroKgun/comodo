@@ -146,6 +146,10 @@ export default {
           }
         ]
       },
+      chartOptions: {
+        responsive: true,
+        maintainAspectRatio: false
+      },
       perPage: 20,
       currentPage: 1,
       checked: false,
