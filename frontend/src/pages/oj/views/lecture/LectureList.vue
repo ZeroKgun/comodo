@@ -17,10 +17,10 @@
       :per-page="perPage"
       :current-page="currentPage"
       text="게시글이 없습니다"
-      @row-clicked="golecture"
+      @row-clicked="goLecture"
     >
       <template v-slot:title="data">
-        {{data.row.title}}
+        <a @click="goLecture(data.row)">{{ data.row.title }}</a>
       </template>
       <template v-slot:create_time="data">
         {{ getTimeFormat(data.row.create_time) }}
@@ -28,6 +28,9 @@
       <template v-slot:top_fixed="data">
         <icon v-if="data.row.top_fixed===true" icon='thumbtack'/>
       </template>
+      <div v-for="lecture in lectures" :key="lecture.id" @click="goLecture(lecture)">
+        <!-- 글 목록을 렌더링하고, 각 글을 클릭했을 때 goLecture 메서드 호출 -->
+      </div>
     </Table>
     <div class="pagination">
       <b-pagination
@@ -38,11 +41,18 @@
       ></b-pagination>
     </div>
     <b-modal v-model="showModal" title="글 작성">
-      <textarea v-model="content" rows="5" class="form-control"></textarea>
-      <div class="mt-3">
-        <b-button @click="savePost" variant="primary">작성 완료</b-button>
-        <b-button @click="cancelPost" variant="secondary">취소</b-button>
-      </div>
+    <div>
+      <label for="lecture-title">제목:</label>
+      <input v-model="newLecture.title" type="text" id="lecture-title" class="form-control" />
+    </div>
+    <div class="mt-3">
+      <label for="lecture-content">내용:</label>
+      <textarea v-model="newLecture.content" id="lecture-content" rows="10" class="form-control"></textarea>
+    </div>
+    <div class="mt-3">
+      <b-button @click="savePost" variant="primary">작성 완료</b-button>
+      <b-button @click="cancelPost" variant="secondary">취소</b-button>
+    </div>
     </b-modal>
   </div>
 </template>
@@ -61,6 +71,12 @@ export default {
   },
   data () {
     return {
+      showModal: false,
+      newLecture: {
+        title: '',
+        content: ''
+      },
+      content: '', // 작성한 글을 저장하는 데이터 속성
       saveBtnVisible: false,
       perPage: 10,
       currentPage: 1,
@@ -92,12 +108,50 @@ export default {
     }
   },
   async mounted () {
-    await this.init()
+    await this.init();
+    this.loadSavedLectures(); // 로컬 스토리지에서 데이터를 가져옵니다.
+    this.fetchLectures(); // 컴포넌트가 마운트되면 글 목록을 가져오는 함수 호출
+  },
+  async fetchLectures () {
+    try {
+      const response = await api.getLectures(); // API 요청을 보내서 글 목록을 가져옴
+      this.lectures = response.data; // 가져온 글 목록을 변수에 저장
+    } catch (error) {
+      console.error('Failed to fetch lectures:', error);
+    }
   },
   methods: {
     openWriteForm () {
-      this.saveBtnVisible = true;
+      this.saveBtnVisible = false;
+      this.newLecture.title = ''; // 제목 초기화
+      this.newLecture.content = ''; // 내용 초기화
       this.showModal = true;
+    },
+    savePost () {
+      // 작성한 글을 게시판에 추가하는 로직을 작성합니다.
+      // this.content 변수에 작성한 내용이 저장되어 있습니다.
+      // 게시판의 데이터 배열에 새로운 항목을 추가하고, 필요한 처리를 수행합니다.
+      // 필요한 경우 API를 호출하여 서버에 데이터를 전송할 수도 있습니다.
+
+      // 예시: lectures 배열에 새로운 글 추가
+      this.lectures.push({
+        title: this.newLecture.title,
+        create_time: new Date().toISOString()
+        // 필요한 다른 속성들도 추가할 수 있습니다.
+      });
+
+      this.showModal = false; // 모달 창 닫기
+      this.content = ''; // 작성 내용 초기화
+      localStorage.setItem('lectures', JSON.stringify(this.lectures));
+    },
+    loadSavedLectures () {
+      const savedLectures = localStorage.getItem('lectures');
+      if (savedLectures) {
+        this.lectures = JSON.parse(savedLectures);
+      }
+    },
+    cancelPost () {
+      this.showModal = false; // 모달 창 닫기
     },
     async init () {
       if (this.isContest) {
@@ -135,9 +189,15 @@ export default {
         this.btnLoading = false
       }
     },
-    async golecture (lecture) {
+    async goLecture (lecture) {
       this.lecture = lecture
       this.listVisible = false
+      try {
+        const res = await api.getLectureDetails(lecture.id); // 적절한 API 메소드를 사용하여 강의 내용을 가져옵니다
+        this.lecture.content = res.data.content; // 강의 내용이 'content' 필드에 반환된다고 가정하고, 강의 객체를 해당 내용으로 업데이트합니다
+      } catch (err) {
+        console.error(err);
+      }
       await this.$router.push({
         name: 'lecture-details',
         params: { lectureID: lecture.id }
@@ -184,205 +244,3 @@ export default {
   font-family: manrope_bold;
 }
 </style>
-
-<!--template>
-  <div class="lecture-list-card font-bold">
-    <div class="flex justify-between mr-32">
-      <page-title text="게시판"/>
-      <div class="my-auto h-8">
-        <b-button
-          v-if="!saveBtnVisible"
-          size="sm"
-          @click="setBookmark"
-        >All Course</b-button>
-        <b-button
-          v-if="saveBtnVisible"
-          size="sm"
-          @click="saveBookmark"
-        >
-          <b-icon icon="check"/> 저장
-        </b-button>
-      </div>
-    </div>
-    <div class="no-lecture" v-if="!lectureList.length">게시글이 없습니다</div>
-    <div class="lecture-card-list">
-      <b-card
-        v-for="(lecture,index) in lectureList"
-        :key="index"
-        style="width: 230px; margin: 25px 25px 0 0; cursor: pointer;"
-      >
-        <b-card-text class="lecture-card__card">
-          <div
-            class="lecture-card__cardcolor"
-            :style="'background-color:' + backcolor[index % 7]"
-          ></div>
-          <div class="lecture-card__lectureInfo">
-            <div class="lecture-card__title">
-              {{ lecture.course.title }}
-              <b-button
-                class="lecture-card__btn"
-                @click="setBookmarkCourse(index, lecture.course.id, lecture.bookmark)"
-                v-if="saveBtnVisible"
-              >
-                <b-icon :icon="setIcon(lecture.bookmark)"/>
-              </b-button>
-            </div>
-            <div class="lecture-card__info">
-              {{ lecture.course.course_code + '-' + lecture.course.class_number }}
-              <span v-if="lecture.course.created_by.real_name">{{ '(' + lecture.course.created_by.real_name + ')' }} </span><br/>
-              {{ lecture.course.registered_year + ' ' + getSemester(lecture.course.semester) }} <br/>
-            </div>
-            <div>
-              <b-button
-                class="lecture-card__btn mr-3"
-                size="sm"
-                v-b-tooltip.hover.bottomright="'Assignment'"
-                :to="'lecture/' + lecture.course.id + '/assignment'">
-                <b-icon icon="journal-text"/>
-              </b-button>
-              <b-button
-                class="lecture-card__btn"
-                size="sm"
-                v-b-tooltip.hover.bottomright="'QnA'"
-                :to="'lecture/' + lecture.course.id + '/question'">
-                <b-icon icon="patch-question"/>
-              </b-button>
-            </div>
-          </div>
-        </b-card-text>
-      </b-card>
-    </div>
-  </div>
-</!--template>
-
-<script>
-import api from '@oj/api'
-import PageTitle from '@oj/components/PageTitle.vue'
-
-export default {
-  name: 'CourseList',
-  components: {
-    PageTitle
-  },
-  data () {
-    return {
-      perPage: 10,
-      currentPage: 1,
-      lectureList: [],
-      lectureTableColumns: [
-        {
-          label: 'Subject',
-          key: 'course.title'
-        },
-        'Semester'
-      ],
-      semesters: ['Spring', 'Summer', 'Fall', 'Winter'],
-      backcolor: [
-        '#9EC1CF', '#CC99C9', '#FEB144', '#FF6663', '#7C7A7B', '#E2E2E2'
-      ],
-      saveBtnVisible: false
-    }
-  },
-  async mounted () {
-    await this.init()
-  },
-  methods: {
-    async init () {
-      try {
-        const resp = await api.getBookmarkCourseList()
-        const data = resp.data.data
-        this.lectureList = data.results
-      } catch (err) {
-      }
-    },
-    async goCourseDashboard (item) {
-      await this.$router.push({
-        name: 'lecture-dashboard',
-        params: { courseID: item.course.id }
-      })
-    },
-    async goAssignmentList (courseID) {
-      await this.$router.push({
-        name: 'lecture-assignment',
-        params: {
-          courseID: courseID
-        }
-      })
-    },
-    async setBookmark () {
-      const resp = await api.getCourseList()
-      const data = resp.data.data
-      this.lectureList = data.results
-      this.saveBtnVisible = true
-    },
-    async setBookmarkCourse (index, courseID, bookmark) {
-      await api.setBookmark(courseID, !bookmark)
-      this.lectureList[index].bookmark = !bookmark
-    },
-    async saveBookmark () {
-      this.saveBtnVisible = !this.saveBtnVisible
-      await this.init()
-    },
-    setIcon (bookmark) {
-      return bookmark ? 'bookmark-fill' : 'bookmark'
-    },
-    getSemester (semesterno) {
-      return this.semesters[semesterno]
-    }
-  },
-  computed: {
-  }
-}
-</script>
-
-<style-- lang="scss" scoped>
-  .font-bold {
-    font-family: manrope_bold;
-  }
-  .lecture-list-card{
-    margin:0 auto;
-    width:70%;
-  }
-  .no-lecture {
-    text-align: center;
-  }
-  .lecture-card-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-left: 68px;
-  }
-  .card-body {
-    padding: 0 !important;
-  }
-  .lecture-card {
-    &__card ::v-deep{
-      color: #7C7A7B;
-      cursor: default;
-    }
-    &__cardcolor {
-      height: 135px;
-      border-radius: 8px 8px 0 0;
-    }
-    &__lectureInfo {
-      padding: 25px;
-    }
-    &__title {
-      font-size: 16px;
-      display: flex;
-      justify-content: space-between;
-      word-break: keep-all;
-    }
-    &__info {
-      margin-bottom: 10px;
-      font-size: 12px;
-    }
-    &__btn ::v-deep {
-      background-color: transparent;
-      color: #7A7C7B;
-    }
-    &__btn:hover, __btn:active ::v-deep{
-      background-color: transparent;
-      color: #AAAAAA;
-    }
-  }
-</style-->

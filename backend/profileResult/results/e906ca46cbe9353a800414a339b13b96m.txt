@@ -1,0 +1,10 @@
+실험
+Filename: e906ca46cbe9353a800414a339b13b96.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+     1   17.273 MiB   17.273 MiB           1   @profile
+     2                                         def main():
+     3   17.273 MiB    0.000 MiB           1   	print("실험")
+
+
