@@ -207,7 +207,7 @@
             readOnly
             :key= "linechart_key"
             :chartData = "chartData"
-            :options ="chartOptions"
+            :chartOptions ="chartOptions"
             />
         </div>
         <div id="submission-detail-table">
@@ -266,13 +266,12 @@ export default {
       submission_detail: {},
       chartData: {
         labels: [],
-        datasets: [
+        datasets:
           {
             label: 'line hit time',
             backgroundColor: '#f87979',
             data: []
           }
-        ],
       },
       chartOptions: {
         responsive: true,

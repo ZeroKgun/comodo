@@ -117,7 +117,7 @@ class SubmissionAPI(APIView):
         shutil.move(submission.id+"m.txt", "./profileResult/results")
         line, per_time = ffff(submission.id)
         line_m, increment = fffm(submission.id)
-        Codeprofile.objects.create(submission_id=submission.id, line=line, per_time=per_time, line_m = line_m, increment=increment)
+        Codeprofile.objects.create(submission_id=submission.id, line=line, per_time=per_time)
 
         # use this for debug
         # JudgeDispatcher(submission.id, problem.id).judge()
