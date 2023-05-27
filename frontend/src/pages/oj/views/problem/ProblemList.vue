@@ -8,7 +8,10 @@
         알고리즘 분류와 난이도를 선택하여 지금 내게 필요한 문제를 풀어보세요!
       </template>
     </page-top> -->
-    <LineChart />
+    <LineChart
+      :chartData="chartData"
+      :chartOptions="chartOptions"
+    />
     <div class="problem-list-card font-bold">
       <div v-for="problemSetGroup in problemSetGroups" :key="problemSetGroup.id">
         <h4 class="subtitle-blue text-xl">
@@ -126,6 +129,23 @@ export default {
   mixins: [ProblemMixin],
   data () {
     return {
+      chartData: {
+        labels: [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+        datasets: [
+          {
+            label: 'Data One',
+            backgroundColor: "rgb(255,153,204, 0.5)",
+            pointBackgroundColor: "hotpink",
+            tension: 0.3,
+            borderColor: "hotpink",
+            pointBorderColor: "hotpink",
+            borderWidth: 1,
+            pointBorderWidth: 1,
+            data: [450, 300, 100, 1000, 750, 600, 900, 1500, 1200, 2000],
+            fill: true
+          }
+        ]
+      },
       perPage: 20,
       currentPage: 1,
       checked: false,

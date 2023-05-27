@@ -1,6 +1,6 @@
 <template>
   <div style="text-align: center; display: flex; justify-content: center;">
-    <img
+    <img id="slogan"
       src="@/assets/slogan.png"
       alt="comodo"
     >
@@ -21,11 +21,11 @@ export default {
 </script>
 
 <style>
-  img {
+  #slogan {
     width: 600px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 40px;
+    margin-top: 100px;
     display: block;
   }
 </style>
