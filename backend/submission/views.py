@@ -106,10 +106,14 @@ class SubmissionAPI(APIView):
         file_func(t1, submission.code)
         t1.write('main()')
         t1.close()
-        command = "kernprof -l " + file_name
-        #_commandM = "python -m memory_profiler " + file_name + " > " + submission.id + "m.txt"
-        subprocess.run(args=command.split(), input=__sample['input'], text=True)
-        #subprocess.run(_commandM, shell =True, input=__sample['input'], text=True)
+        testcase_input=__sample['input']
+        output_file = file_name+'.lprof'
+
+        with open("temp_input.txt", "w") as f:
+            f.write(testcase_input)
+
+        command = f'kernprof -l -o {output_file} {file_name} < temp_input.txt'
+        subprocess.run(args=command, shell=True)
         os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
         os.remove(file_name+".lprof")
         os.remove(file_name)

@@ -1,0 +1,29 @@
+Timer unit: 1e-06 s
+
+Total time: 0.00159571 s
+File: 3eff2c30edb9661ae73190dc82e4d08f.py
+Function: main at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           @profile
+     2                                           def main():
+     3         1          1.2      1.2      0.1  	array = []
+     4         9         10.0      1.1      0.6  	for i in range(9):
+     5         9       1462.8    162.5     91.7  	    array.append(int(input()))
+     6                                           	
+     7         1          1.5      1.5      0.1  	array.sort()
+     8                                           	
+     9         1          1.2      1.2      0.1  	sum_ = sum(array)
+    10                                           	
+    11                                           	# 만약 모두다 더하고 2명을 뺐을 때 그 값이 100이라면 2개를 뺀 나머지 값들 출력
+    12         5          1.7      0.3      0.1  	for i in range(len(array)):
+    13        30          6.2      0.2      0.4  	    for j in range(i + 1, len(array)):
+    14        29          7.6      0.3      0.5  	        if sum_ - array[i] - array[j] == 100:
+    15         9          3.3      0.4      0.2  	            for k in range(len(array)):
+    16         7          2.8      0.4      0.2  	                if k == i or k == j:
+    17         1          1.0      1.0      0.1  	                    pass
+    18                                           	                else:
+    19         7         81.6     11.7      5.1  	                    print(array[k])
+    20         1         14.9     14.9      0.9  	            exit()
+
