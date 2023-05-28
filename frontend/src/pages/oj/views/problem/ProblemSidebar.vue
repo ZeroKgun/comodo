@@ -266,12 +266,21 @@ export default {
       submission_detail: {},
       chartData: {
         labels: [],
-        datasets:
+        datasets: [
           {
             label: 'line hit time',
+            backgroundColor: "rgb(255,153,204, 0.5)",
+            pointBackgroundColor: "hotpink",
+            tension: 0.3,
+            borderColor: "hotpink",
+            pointBorderColor: "hotpink",
+            borderWidth: 1,
+            pointBorderWidth: 1,
             backgroundColor: '#f87979',
-            data: []
+            data: [],
+            fill: true
           }
+        ]
       },
       chartOptions: {
         responsive: true,
@@ -344,8 +353,10 @@ export default {
     async getProfileData (submissionID) {
       const res = await api.getProfileData(submissionID)
       const pdata = res.data.data
-      this.chartData.labels = pdata.line
-      this.chartData.datasets.data = pdata.per_time
+      const labelData = JSON.parse(pdata.line)
+      const setData = JSON.parse(pdata.per_time)
+      this.chartData.labels = labelData
+      this.chartData.datasets[0].data = setData
     },
     async getContestProblems () {
       const res = await this.$store.dispatch(this.bank ? 'getProblemBankContestProblems' : 'getContestProblems')

@@ -1,15 +1,29 @@
 - model: announcement.announcement
   pk: 1
   fields:
-    title: Simple Announcement
-    content: <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry&#039;s standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to make
-      a type specimen book. It has survived not only five centuries, but also the
-      leap into electronic typesetting, remaining essentially unchanged. It was popularised
-      in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-      and more recently with desktop publishing software like Aldus PageMaker including
-      versions of Lorem Ipsum.</p>
+    title: 제5회 SW경시대회(세종코딩챌린지위크) 개최
+    content: <p>제5회 SW경시대회(세종코딩챌린지위크) 개최
+        소프트웨어융합대학에서는 인문․사회․예체능을 포함한 모든 학문 분야와의 SW융합을
+        통한 창의적 SW 인재 육성을 위해서 매년 SW경시대회를 개최해왔습니다. 올해 제5회 SW경시대회는
+        세종대학교 재학생들이 적극 참여할 수 있는 “SW코딩챌린지위크” 형태로 개최하고 또한 1차 시험 우수자를
+        대상으로 2차 시험을 실시합니다. SW코딩챌린지위크(10월29일~11월9일 2주일)동안에는 매일 저녁 단과대학 그룹별로 코딩 문제가 제시되고 이를 해결하는 코딩 경시대회를 실시합니다. 올해는 SW코딩능력이 입증되기만 하면 장학금과 세종SW코딩인증서를 부여할 예정이니 많은 참여를 바랍니다.
+        1. 참여대상 > 세종대학교 학부생
+
+        2. 응시구분 > “C 언어” 와 “파이썬 언어” 코딩 분야
+        * SW전공학과 > 컴퓨터공학, 소프트웨어(디지털콘텐츠), 정보보호, 데이터사이언스학과
+
+        * SW전공학과로의 복수/부전공자와 전자정보대학소속 학생은 C언어로만 응시, 평가는 별도로 진행
+
+        * SW전공학과 출신의 SW연계전공(ES/SM/GM 등) 학생은 C언어로만 응시, SW전공학과로 평가
+
+        * 비SW전공학과 출신의 SW연계전공(ES/SM/GM 등) 학생은 C/파이썬 언어 중 택일, 평가는 별도로 진행
+
+        * 융합창업연계전공은 주전공학과 소속 그룹으로 응시
+
+        * SW전공 및 SW융합/연계/복수/부전공자는 경시대회에 반드시 참여
+
+        * 2018학번 학생들은 소속대학에 맞는 응시분야를 선택해 경시대회에 반드시 참여
+        </p>
     create_time: 2022-02-15 07:21:53.201458+00:00
     created_by:
     - root
@@ -55,6 +69,19 @@
   pk: 3
   fields:
     title: Announcement with a Photo
+    content: <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      />
+    create_time: 2022-02-15 07:37:14.418210+00:00
+    created_by:
+    - root
+    last_update_time: 2022-02-15 07:37:14.418273+00:00
+    visible: true
+    top_fixed: false
+
+- model: announcement.announcement
+  pk: 4
+  fields:
+    title: 공지사항 테스트4
     content: <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
       />
     create_time: 2022-02-15 07:37:14.418210+00:00

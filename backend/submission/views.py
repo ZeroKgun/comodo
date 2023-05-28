@@ -109,14 +109,14 @@ class SubmissionAPI(APIView):
         command = "kernprof -l " + file_name
         _commandM = "python -m memory_profiler " + file_name + " > " + submission.id + "m.txt"
         subprocess.run(args=command.split(), input=__sample['input'], text=True)
-        subprocess.run(_commandM, shell =True, input=__sample['input'], text=True)
+        #subprocess.run(_commandM, shell =True, input=__sample['input'], text=True)
         os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
         os.remove(file_name+".lprof")
         os.remove(file_name)
         shutil.move(submission.id+".txt", "./profileResult/results")
-        shutil.move(submission.id+"m.txt", "./profileResult/results")
+        #shutil.move(submission.id+"m.txt", "./profileResult/results")
         line, per_time = ffff(submission.id)
-        line_m, increment = fffm(submission.id)
+        #line_m, increment = fffm(submission.id)
         Codeprofile.objects.create(submission_id=submission.id, line=line, per_time=per_time)
 
         # use this for debug

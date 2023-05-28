@@ -23,7 +23,8 @@ import {
   LineElement,
   LinearScale,
   CategoryScale,
-  PointElement
+  PointElement,
+  Filler
 } from 'chart.js'
 
 ChartJS.register(
@@ -33,7 +34,8 @@ ChartJS.register(
   LineElement,
   LinearScale,
   CategoryScale,
-  PointElement
+  PointElement,
+  Filler
 )
 
 export default {
@@ -60,11 +62,11 @@ export default {
     },
     width: {
       type: Number,
-      default: 200
+      default: 400
     },
     height: {
       type: Number,
-      default: 200
+      default: 400
     },
     cssClasses: {
       default: '',
