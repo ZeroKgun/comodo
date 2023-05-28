@@ -107,7 +107,7 @@ class SubmissionAPI(APIView):
         t1.write('main()')
         t1.close()
         command = "kernprof -l " + file_name
-        _commandM = "python -m memory_profiler " + file_name + " > " + submission.id + "m.txt"
+        #_commandM = "python -m memory_profiler " + file_name + " > " + submission.id + "m.txt"
         subprocess.run(args=command.split(), input=__sample['input'], text=True)
         #subprocess.run(_commandM, shell =True, input=__sample['input'], text=True)
         os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
@@ -115,9 +115,9 @@ class SubmissionAPI(APIView):
         os.remove(file_name)
         shutil.move(submission.id+".txt", "./profileResult/results")
         #shutil.move(submission.id+"m.txt", "./profileResult/results")
-        line, per_time = ffff(submission.id)
+        line, hits, time, per_time = ffff(submission.id)
         #line_m, increment = fffm(submission.id)
-        Codeprofile.objects.create(submission_id=submission.id, line=line, per_time=per_time)
+        Codeprofile.objects.create(submission_id=submission.id, line=line, hits=hits, time=time, per_time=per_time)
 
         # use this for debug
         # JudgeDispatcher(submission.id, problem.id).judge()

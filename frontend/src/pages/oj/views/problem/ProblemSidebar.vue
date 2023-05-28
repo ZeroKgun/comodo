@@ -268,7 +268,7 @@ export default {
         labels: [],
         datasets: [
           {
-            label: 'line hit time',
+            label: '라인별 수행시간 (비율)',
             backgroundColor: "rgb(255,153,204, 0.5)",
             pointBackgroundColor: "hotpink",
             tension: 0.3,
@@ -278,7 +278,20 @@ export default {
             pointBorderWidth: 1,
             backgroundColor: '#f87979',
             data: [],
-            fill: true
+            fill: false
+          },
+          {
+            label: '라인별 수행시간 (실제)',
+            backgroundColor: "rgb(0,0,255)",
+            pointBackgroundColor: "blue",
+            tension: 0.3,
+            borderColor: "blue",
+            pointBorderColor: "blue",
+            borderWidth: 1,
+            pointBorderWidth: 1,
+            backgroundColor: '#0000FF',
+            data: [],
+            fill: false
           }
         ]
       },
@@ -354,9 +367,11 @@ export default {
       const res = await api.getProfileData(submissionID)
       const pdata = res.data.data
       const labelData = JSON.parse(pdata.line)
-      const setData = JSON.parse(pdata.per_time)
+      const setPerTime = JSON.parse(pdata.per_time)
+      const setRealTime = JSON.parse(pdata.time)
       this.chartData.labels = labelData
-      this.chartData.datasets[0].data = setData
+      this.chartData.datasets[0].data = setPerTime
+      this.chartData.datasets[1].data = setRealTime
     },
     async getContestProblems () {
       const res = await this.$store.dispatch(this.bank ? 'getProblemBankContestProblems' : 'getContestProblems')

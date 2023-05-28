@@ -18,15 +18,19 @@ def ffff(id):
         f.readline()
     lines = f.readlines()
     line = []
+    hits = []
+    time = []
     per_time = []
     for l in lines:
         arr = l.split()
         if len(arr)<2: continue
         if arr[1].isdigit():
             line.append(int(arr[0])-2)
+            hits.append(int(arr[1]))
+            time.append(float(arr[2]))
             per_time.append(float(arr[4]))
     f.close()
-    return line, per_time
+    return line, hits, time, per_time
 
 def fffm(id):
     file_name = id+"m.txt"

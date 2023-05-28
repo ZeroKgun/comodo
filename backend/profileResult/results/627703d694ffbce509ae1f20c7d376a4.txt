@@ -1,0 +1,40 @@
+Timer unit: 1e-06 s
+
+Total time: 6.4334e-05 s
+File: 627703d694ffbce509ae1f20c7d376a4.py
+Function: main at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           @profile
+     2                                           def main():
+     3         1          1.5      1.5      2.3  	import sys
+     4                                           	
+     5         1          0.2      0.2      0.4  	def find_lis(nums):
+     6                                           	    lis = [1] * len(nums)
+     7                                           	    prev = [-1] * len(nums)
+     8                                           	
+     9                                           	    for i in range(1, len(nums)):
+    10                                           	        for j in range(i):
+    11                                           	            if nums[i] > nums[j] and lis[i] < lis[j] + 1:
+    12                                           	                lis[i] = lis[j] + 1
+    13                                           	                prev[i] = j
+    14                                           	
+    15                                           	    max_len = max(lis)
+    16                                           	    max_idx = lis.index(max_len)
+    17                                           	    sequence = []
+    18                                           	
+    19                                           	    while max_idx != -1:
+    20                                           	        sequence.append(nums[max_idx])
+    21                                           	        max_idx = prev[max_idx]
+    22                                           	
+    23                                           	    return max_len, sequence[::-1]
+    24                                           	
+    25         1         15.9     15.9     24.7  	n = int(sys.stdin.readline())
+    26         1          5.1      5.1      8.0  	arr = list(map(int, sys.stdin.readline().split()))
+    27                                           	
+    28         1         12.0     12.0     18.7  	length, subsequence = find_lis(arr)
+    29                                           	
+    30         1         25.3     25.3     39.3  	print(length)
+    31         1          4.2      4.2      6.6  	print(*subsequence)
+
