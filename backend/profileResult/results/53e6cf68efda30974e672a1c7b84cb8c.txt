@@ -1,0 +1,12 @@
+Timer unit: 1e-06 s
+
+Total time: 0.00102938 s
+File: 53e6cf68efda30974e672a1c7b84cb8c.py
+Function: main at line 1
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     1                                           @profile
+     2                                           def main():
+     3         1       1029.4   1029.4    100.0  	print("실험")
+
