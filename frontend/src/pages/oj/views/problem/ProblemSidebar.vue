@@ -275,7 +275,7 @@ export default {
       },
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: false,
+        maintainAspectRatio: false
       },
       // Map (key: problem id, value: problem title)
       assignmentProblems: [],

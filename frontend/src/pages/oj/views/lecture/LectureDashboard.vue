@@ -13,11 +13,12 @@
       <router-link :to="'/lecture/' + lecture.id">
         <div class="lecture__title" v-if="lecture">{{ lecture.title }}</div>
       </router-link>
-      <div class="lecture__title">{{ lecture.title }}</div>
       <div class="lecture__date">{{ getTimeFormat(lecture.create_time) }}</div>
     </div>
-    <div class="lecture__content" v-katex>
-      <p v-dompurify-html="lecture.content" v-if="lecture" />
+    <div v-if="lecture">
+      <div class="lecture__content" v-katex>
+        <p v-dompurify-html="lecture.content" />
+      </div>
     </div>
     <b-list-group class="lecture__pagination">
       <b-list-group-item
@@ -66,6 +67,10 @@ export default {
         this.lecture = res.data.data.current; // 선택한 글의 세부 정보를 변수에 저장
         this.prevlecture = 'previous' in res.data.data ? res.data.data.previous : null;
         this.nextlecture = 'next' in res.data.data ? res.data.data.next : null;
+
+        this.$nextTick(() => {
+          this.$el.classList.add('loaded');
+        });
       } catch (err) {
         console.error('Failed to fetch lecture details:', err);
       }
@@ -141,5 +146,12 @@ export default {
     width: 120px;
     margin: auto 20px;
     color: #696969;
+  }
+  .lecture__content {
+    /* 기존 스타일들 */
+    display: none; /* 기본적으로 숨김 */
+  }
+  .lecture.loaded .lecture__content {
+    display: block; /* 로드되었을 때 보이도록 설정 */
   }
 </style>

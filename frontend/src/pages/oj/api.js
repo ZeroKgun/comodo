@@ -407,6 +407,13 @@ export default {
     return ajax('lecture/course/question/answer/', 'delete', {
       params
     })
+  },
+  getLectureDetails (courseID) {
+    return ajax('lecture/course/', 'get', {
+      params: {
+        course_id: courseID
+      }
+    });
   }
 }
 

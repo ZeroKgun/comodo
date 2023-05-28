@@ -40,7 +40,9 @@
         limit="3"
       ></b-pagination>
     </div>
-    <b-modal v-model="showModal" title="글 작성">
+    <b-modal v-model="showModal" title="글 작성" hide-footer :modal-class="'write-form'">
+
+  <div class="d-flex flex-column">
     <div>
       <label for="lecture-title">제목:</label>
       <input v-model="newLecture.title" type="text" id="lecture-title" class="form-control" />
@@ -49,11 +51,14 @@
       <label for="lecture-content">내용:</label>
       <textarea v-model="newLecture.content" id="lecture-content" rows="10" class="form-control"></textarea>
     </div>
-    <div class="mt-3">
-      <b-button @click="savePost" variant="primary">작성 완료</b-button>
-      <b-button @click="cancelPost" variant="secondary">취소</b-button>
+    <div class="mt-3 ml-auto">
+      <b-button @click="savePost" variant="primary" class="mr-2">작성 완료</b-button>
+      <b-button @click="cancelPost" variant="secondary" style="background-color: #7C7A7B; color: white;">취소</b-button>
+
     </div>
-    </b-modal>
+  </div>
+</b-modal>
+
   </div>
 </template>
 
@@ -112,20 +117,20 @@ export default {
     this.loadSavedLectures(); // 로컬 스토리지에서 데이터를 가져옵니다.
     this.fetchLectures(); // 컴포넌트가 마운트되면 글 목록을 가져오는 함수 호출
   },
-  async fetchLectures () {
-    try {
-      const response = await api.getLectures(); // API 요청을 보내서 글 목록을 가져옴
-      this.lectures = response.data; // 가져온 글 목록을 변수에 저장
-    } catch (error) {
-      console.error('Failed to fetch lectures:', error);
-    }
-  },
   methods: {
     openWriteForm () {
       this.saveBtnVisible = false;
       this.newLecture.title = ''; // 제목 초기화
       this.newLecture.content = ''; // 내용 초기화
       this.showModal = true;
+    },
+    async fetchLectures () {
+      try {
+        const response = await api.getLectures(); // API 요청을 보내서 글 목록을 가져옴
+        this.lectures = response.data; // 가져온 글 목록을 변수에 저장
+      } catch (error) {
+        console.error('Failed to fetch lectures:', error);
+      }
     },
     savePost () {
       // 작성한 글을 게시판에 추가하는 로직을 작성합니다.
@@ -134,7 +139,7 @@ export default {
       // 필요한 경우 API를 호출하여 서버에 데이터를 전송할 수도 있습니다.
 
       // 예시: lectures 배열에 새로운 글 추가
-      this.lectures.push({
+      this.lectures.unshift({
         title: this.newLecture.title,
         create_time: new Date().toISOString()
         // 필요한 다른 속성들도 추가할 수 있습니다.
@@ -242,5 +247,9 @@ export default {
 }
 .font-bold {
   font-family: manrope_bold;
+}
+.write-form .modal-content {
+  width: 800px; /* 원하는 너비로 설정 */
+  height: 600px; /* 원하는 높이로 설정 */
 }
 </style>
