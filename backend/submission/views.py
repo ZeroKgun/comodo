@@ -115,6 +115,8 @@ class SubmissionAPI(APIView):
         command = f'kernprof -l -o {output_file} {file_name} < temp_input.txt'
         subprocess.run(args=command, shell=True)
         os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
+
+        os.remove("temp_input.txt")
         os.remove(file_name+".lprof")
         os.remove(file_name)
         shutil.move(submission.id+".txt", "./profileResult/results")
