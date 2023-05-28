@@ -40,7 +40,8 @@
         limit="3"
       ></b-pagination>
     </div>
-    <b-modal v-model="showModal" title="글 작성">
+    <b-modal v-model="showModal" title="글 작성" hide-footer>
+  <div class="d-flex flex-column">
     <div>
       <label for="lecture-title">제목:</label>
       <input v-model="newLecture.title" type="text" id="lecture-title" class="form-control" />
@@ -49,11 +50,13 @@
       <label for="lecture-content">내용:</label>
       <textarea v-model="newLecture.content" id="lecture-content" rows="10" class="form-control"></textarea>
     </div>
-    <div class="mt-3">
-      <b-button @click="savePost" variant="primary">작성 완료</b-button>
-      <b-button @click="cancelPost" variant="secondary">취소</b-button>
+    <div class="mt-3 ml-auto">
+      <b-button @click="savePost" variant="primary" class="mr-2">작성 완료</b-button>
+      <b-button @click="cancelPost" variant="secondary" style="background-color: #7C7A7B; color: white;">취소</b-button>
     </div>
-    </b-modal>
+  </div>
+</b-modal>
+
   </div>
 </template>
 
@@ -134,7 +137,7 @@ export default {
       // 필요한 경우 API를 호출하여 서버에 데이터를 전송할 수도 있습니다.
 
       // 예시: lectures 배열에 새로운 글 추가
-      this.lectures.push({
+      this.lectures.unshift({
         title: this.newLecture.title,
         create_time: new Date().toISOString()
         // 필요한 다른 속성들도 추가할 수 있습니다.
