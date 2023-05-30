@@ -282,14 +282,14 @@ export default {
           },
           {
             label: '라인별 수행시간 (실제)',
-            backgroundColor: "rgb(0,0,255)",
-            pointBackgroundColor: "blue",
+            backgroundColor: "#A3E28B",
+            pointBackgroundColor: "#A3E28B",
             tension: 0.3,
-            borderColor: "blue",
-            pointBorderColor: "blue",
+            borderColor: "#A3E28B",
+            pointBorderColor: "#A3E28B",
             borderWidth: 1,
             pointBorderWidth: 1,
-            backgroundColor: '#0000FF',
+            backgroundColor: '##A3E28B',
             data: [],
             fill: false
           }
