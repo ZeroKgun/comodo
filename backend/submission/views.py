@@ -21,7 +21,7 @@ from utils.captcha import Captcha
 from utils.decorators import login_required, check_contest_permission, admin_role_required, check_assignment_permission
 from utils.shortcuts import file_func
 from utils.throttling import TokenBucket
-from utils.shortcuts import ffff, fffm
+from utils.shortcuts import ffff, fffm, skip_import
 from .models import Submission
 from profileResult.models import Codeprofile
 from .serializers import (CreateSubmissionSerializer, SubmissionModelSerializer,
@@ -103,10 +103,8 @@ class SubmissionAPI(APIView):
         file_name = submission.id+'.py'
 
         with open(file_name, 'w') as t1:
-            t1.write('@profile\n')
-            t1.write('def main():\n')
+            skip_import(t1, submission.code)
             file_func(t1, submission.code)
-            t1.write('main()\n')
 
         testcase_input=__sample['input']
         output_file = file_name+'.lprof'

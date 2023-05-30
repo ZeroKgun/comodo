@@ -143,7 +143,20 @@ def check_is_id(value):
         return False
 
 def file_func(t1, code):
-            str_arr = code.split('\n')
-            for i, line in enumerate(str_arr):
+            t1.write('@profile\n')
+            t1.write('def main():\n')
+            lines = code.split('\n')
+            for i, line in enumerate(lines):
+                if 'import' in line:
+                    continue
                 t1.write('\t' + line + '\n')
+            t1.write('main()\n')
 
+def skip_import(t1, code):
+    lines = code.split('\n')
+    for i, line in enumerate(lines):
+        if 'import' not in line:
+            break
+        else:
+            t1.write(line+'\n')
+            continue
