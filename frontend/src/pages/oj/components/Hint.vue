@@ -15,6 +15,9 @@
     <b-button v-else-if="step === 4"  @click="$bvModal.show('modal-multi-5')"
       v-b-modal.modal-multi-5 id="popover-target" class="bg-warning">Hint
     </b-button>
+    <b-button v-else-if="step === 5"  @click="$bvModal.show('modal-multi-6')"
+      v-b-modal.modal-multi-5 id="popover-target" class="bg-warning">Hint
+    </b-button>
       <b-popover target="popover-target" triggers="hover" placement="bottomright">
         <template #title>Hint</template>
         <p class="my-1"><strong>1단계</strong>: <span class="text-danger">알고리즘 분류(Tag)</span> 공개</p>
@@ -45,6 +48,11 @@
     <b-modal id="modal-multi-5" size="lg" title="4단계 힌트" no-stacking ok-only>
       <span v-if="showLoadingCircle"> L O A D I N G ... </span>
       <p v-else id="hint-message" v-html="renderedCodeBlock"></p>
+      <b-button v-if="showHintButton" @click="getGPTResponse(fifthHint), $bvModal.show('modal-multi-6')">다음 단계 힌트 보기</b-button>
+    </b-modal>
+    <b-modal id="modal-multi-6" size="lg" title="5단계 힌트" no-stacking ok-only>
+      <span v-if="showLoadingCircle"> L O A D I N G ... </span>
+      <p v-else id="hint-message" v-html="renderedCodeBlock"></p>
     </b-modal>
   </div>
 </template>
@@ -62,8 +70,9 @@ export default {
       showLoadingCircle: false,
       GPTResponseResult: "",
       secondHint: '이 문제에 사용되는 변수와 함수 인자를 알려줘 "변수: ~~ 함수 인자: ~~ " 형태로 간단히 보여줘 정답은 보여주지 마',
-      thirdHint: '이 문제 해답의 pseudo-code를 알려줘 in KOREAN, 정답 코드는 보여주지 마',
-      fourthHint: '이 문제 정답 코드만 보여줘 마크다운 코드 블록 형식으로 보여줘'
+      thirdHint: '이 문제를 해결할 때의 최적의 시간복잡도를 빅 오 표기법으로 알려줘 "시간복잡도 : ~~" 형태로 알려주고 그 외에는 전혀 보여주지 마',
+      fourthHint: '이 문제 해답의 pseudo-code를 알려줘 in KOREAN, 정답 코드는 보여주지 마',
+      fifthHint: '이 문제 정답 코드만 보여줘 마크다운 코드 블록 형식으로 보여줘'
     }
   },
   props: {
@@ -94,7 +103,7 @@ export default {
       this.showLoadingCircle = true
       this.showHintButton = false
       let question = `${this.processedDesc} \n ${message}`
-      if (this.step === 4) {
+      if (this.step === 5) {
         question += ` 사용 언어는 ${this.language}`
       }
       console.log(question)
