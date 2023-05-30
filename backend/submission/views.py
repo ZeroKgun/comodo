@@ -101,22 +101,26 @@ class SubmissionAPI(APIView):
         #__problem_id = submission.problem_id
         __sample = Problem.objects.get(id=submission.problem_id).samples[0]
         file_name = submission.id+'.py'
-        t1 = open(file_name, 'w')
-        t1.write('@profile'+'\n' + 'def main():\n')
-        file_func(t1, submission.code)
-        t1.write('main()')
-        t1.close()
+
+        with open(file_name, 'w') as t1:
+            t1.write('@profile\n')
+            t1.write('def main():\n')
+            file_func(t1, submission.code)
+            t1.write('main()\n')
+
         testcase_input=__sample['input']
         output_file = file_name+'.lprof'
 
-        with open("temp_input.txt", "w") as f:
-            f.write(testcase_input)
+        command = "kernprof -l -o {output_file} {file_name}".format(output_file=output_file, file_name=file_name)
 
-        command = f'kernprof -l -o {output_file} {file_name} < temp_input.txt'
-        subprocess.run(args=command, shell=True)
+        process1 = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
+
+        process1.stdin.write(testcase_input.encode())
+        process1.stdin.close()
+        process1.stdout.close()
+        process1.wait()
+
         os.system("python -m line_profiler "+file_name+".lprof > "+submission.id+".txt")
-
-        os.remove("temp_input.txt")
         os.remove(file_name+".lprof")
         os.remove(file_name)
         shutil.move(submission.id+".txt", "./profileResult/results")

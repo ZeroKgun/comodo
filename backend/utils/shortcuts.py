@@ -144,7 +144,6 @@ def check_is_id(value):
 
 def file_func(t1, code):
             str_arr = code.split('\n')
-            for i in range(0, len(str_arr)):
-                s = '\t' + str_arr[i] + '\n'
-                t1.write(s)
+            for i, line in enumerate(str_arr):
+                t1.write('\t' + line + '\n')
 
