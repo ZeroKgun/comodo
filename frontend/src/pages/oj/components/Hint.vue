@@ -22,8 +22,9 @@
         <template #title>Hint</template>
         <p class="my-1"><strong>1단계</strong>: <span class="text-danger">알고리즘 분류(Tag)</span> 공개</p>
         <p class="my-1"><strong>2단계</strong>: <span class="text-danger">사용 변수, 함수 인자</span> 공개</p>
-        <p class="my-1"><strong>3단계</strong>: <span class="text-danger">의사 코드(Pseudo-code)</span> 공개</p>
-        <p class="my-1"><strong>4단계</strong>: <span class="text-danger">해답</span> 공개</p>
+        <p class="my-1"><strong>3단계</strong>: <span class="text-danger">최적 시간 복잡도</span> 공개</p>
+        <p class="my-1"><strong>4단계</strong>: <span class="text-danger">의사 코드(Pseudo-code)</span> 공개</p>
+        <p class="my-1"><strong>5단계</strong>: <span class="text-danger">해답</span> 공개</p>
       </b-popover>
 
     <b-modal id="modal-multi-1" title="Hint" @ok="$bvModal.show('modal-multi-2')" no-stacking>
@@ -70,7 +71,7 @@ export default {
       showLoadingCircle: false,
       GPTResponseResult: "",
       secondHint: '이 문제에 사용되는 변수와 함수 인자를 알려줘 "변수: ~~ 함수 인자: ~~ " 형태로 간단히 보여줘 정답은 보여주지 마',
-      thirdHint: '이 문제를 해결할 때의 최적의 시간복잡도를 빅 오 표기법으로 알려줘 "시간복잡도 : ~~" 형태로 알려주고 그 외에는 전혀 보여주지 마',
+      thirdHint: '이 문제를 해결할 때의 최적의 시간복잡도를 빅 오 표기법으로 알려줘 "시간복잡도 : ~~" 형태로 단답형으로 알려줘 다른 설명은 보여주지 마',
       fourthHint: '이 문제 해답의 pseudo-code를 알려줘 in KOREAN, 정답 코드는 보여주지 마',
       fifthHint: '이 문제 정답 코드만 보여줘 마크다운 코드 블록 형식으로 보여줘'
     }
