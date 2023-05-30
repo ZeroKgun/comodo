@@ -209,6 +209,7 @@
             :chartData = "chartData"
             :chartOptions ="chartOptions"
             />
+            <BarChart style="display: none" />
         </div>
         <div id="submission-detail-table">
           <Table
@@ -242,6 +243,7 @@ import time from '@/utils/time'
 import { JUDGE_STATUS } from '@/utils/constants'
 import CodeMirror from '@oj/components/CodeMirror.vue'
 import LineChart from '@oj/components/LineChart.vue'
+import BarChart from '@oj/components/BarChart.vue'
 import Table from '@oj/components/Table.vue'
 
 export default {
@@ -249,7 +251,8 @@ export default {
   components: {
     CodeMirror,
     Table,
-    LineChart
+    LineChart,
+    BarChart
   },
   props: {
     hide: Boolean,
@@ -268,6 +271,7 @@ export default {
         labels: [],
         datasets: [
           {
+            type: 'bar',
             label: '라인별 수행시간 (비율)',
             backgroundColor: "rgb(255,153,204, 0.5)",
             pointBackgroundColor: "hotpink",
@@ -276,11 +280,12 @@ export default {
             pointBorderColor: "hotpink",
             borderWidth: 1,
             pointBorderWidth: 1,
-            backgroundColor: '#f87979',
             data: [],
-            fill: false
+            fill: false,
+            order: 2
           },
           {
+            type: 'line',
             label: '라인별 수행시간 (실제)',
             backgroundColor: "rgb(0,0,255)",
             pointBackgroundColor: "blue",
@@ -289,9 +294,9 @@ export default {
             pointBorderColor: "blue",
             borderWidth: 1,
             pointBorderWidth: 1,
-            backgroundColor: '#0000FF',
             data: [],
-            fill: false
+            fill: false,
+            order: 1
           }
         ]
       },
