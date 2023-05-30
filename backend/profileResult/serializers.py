@@ -4,4 +4,4 @@ from profileResult.models import Codeprofile
 class ProfileResultModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Codeprofile
-        fields = ['line', 'per_time']
+        fields = "__all__"

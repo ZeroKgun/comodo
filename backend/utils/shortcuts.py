@@ -18,15 +18,19 @@ def ffff(id):
         f.readline()
     lines = f.readlines()
     line = []
+    hits = []
+    time = []
     per_time = []
     for l in lines:
         arr = l.split()
         if len(arr)<2: continue
         if arr[1].isdigit():
             line.append(int(arr[0])-2)
+            hits.append(int(arr[1]))
+            time.append(float(arr[2]))
             per_time.append(float(arr[4]))
     f.close()
-    return line, per_time
+    return line, hits, time, per_time
 
 def fffm(id):
     file_name = id+"m.txt"
@@ -139,8 +143,20 @@ def check_is_id(value):
         return False
 
 def file_func(t1, code):
-            str_arr = code.split('\n')
-            for i in range(0, len(str_arr)):
-                s = '\t' + str_arr[i] + '\n'
-                t1.write(s)
+            t1.write('@profile\n')
+            t1.write('def main():\n')
+            lines = code.split('\n')
+            for i, line in enumerate(lines):
+                if 'import' in line:
+                    continue
+                t1.write('\t' + line + '\n')
+            t1.write('main()\n')
 
+def skip_import(t1, code):
+    lines = code.split('\n')
+    for i, line in enumerate(lines):
+        if 'import' not in line:
+            break
+        else:
+            t1.write(line+'\n')
+            continue
